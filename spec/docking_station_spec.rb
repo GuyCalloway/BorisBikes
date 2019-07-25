@@ -1,15 +1,27 @@
 require 'docking_station'
 
-
-
 describe DockingStation do
   it 'responds to release_bike' do
     expect(subject).to respond_to :release_bike
   end
 
   it "releases working bikes" do
-    bike = subject.release_bike
+    bike = Bike.new
     expect(bike.working?).to eq true
   end
-  #add a test to your Docking Station that a) gets a bike, then b? expects to be working
+
+  it "makes docking possible" do
+    expect(subject).to respond_to(:docker)
+  end
+
+
+
+  it "will raise an error release_bike activated when none available" do
+    expect { subject.release_bike }.to raise_error("No bike available")
+  end
+
+  it "will raise an error when trying to dock at capacity" do
+    20.times{subject.docker}
+    expect { subject.docker }.to raise_error("at max capacity")
+  end
 end
