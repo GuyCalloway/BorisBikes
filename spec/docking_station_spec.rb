@@ -14,8 +14,6 @@ describe DockingStation do
     expect(subject).to respond_to(:docker)
   end
 
-
-
   it "will raise an error release_bike activated when none available" do
     expect { subject.release_bike }.to raise_error("No bike available")
   end
@@ -23,5 +21,10 @@ describe DockingStation do
   it "will raise an error when trying to dock at capacity" do
     20.times{subject.docker}
     expect { subject.docker }.to raise_error("at max capacity")
+  end
+
+  it 'allows for new instance of docking station to be created where capacity can be set' do
+    docking_station = DockingStation.new(5)
+    expect(docking_station.capacity).to eq(5)
   end
 end
