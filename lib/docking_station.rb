@@ -9,19 +9,36 @@ class DockingStation
   end
 
 
-  def docker
+  def docker(condition = true)
     if full?
       raise "at max capacity"
     else
-      @bikes << Bike.new
+      @bikes << Bike.new(condition)
     end
+  end
+
+  def functioningbikes
+    i = 0
+    @bikes.each { |bike| if bike.working?
+                           i += 1
+                        end
+     }
+     return i
+   end
+
+  def check?
+     workingbikes = functioningbikes
+     return true if workingbikes == 0
+     false
   end
 
   def release_bike
     if empty?
       raise "No bike available"
+    elsif check?
+      raise "No bike available"
     else
-      Bike.new
+      @bikes.sort_by! { |bike| bike.working? ? 1 : 0 }.pop
     end
   end
 

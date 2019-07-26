@@ -1,5 +1,13 @@
 class Bike
+  def initialize(condition = true)
+    @condition = condition
+  end
+
   def working?
-    true
+    if @condition == true
+      true
+    else
+      false
+    end
   end
 end
