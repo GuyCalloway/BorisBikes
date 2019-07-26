@@ -27,4 +27,11 @@ describe DockingStation do
     docking_station = DockingStation.new(5)
     expect(docking_station.capacity).to eq(5)
   end
+
+  it 'Raise an error if sixth bike added to new station of capacity 5' do
+    docking_station = DockingStation.new(5)
+    5.times{docking_station.docker}
+    expect{docking_station.docker}.to raise_error("at max capacity")
+  end
+
 end
